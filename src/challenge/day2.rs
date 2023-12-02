@@ -100,22 +100,58 @@ impl FromStr for CubeCollection {
     }
 }
 
+impl CubeCollection {
+    fn is_part_1_possible(&self) -> bool {
+        let max_red = 12;
+        let max_green = 13;
+        let max_blue = 14;
+
+        self.red <= max_red && self.green <= max_green && self.blue <= max_blue
+    }
+}
+
 pub fn run_part_1(input: &str) -> String {
     input
         .lines()
         .map(|line| line.parse::<Game>().expect("Parse error"))
-        .filter(|game| game.cube_collections.iter().all(is_collection_possible))
+        .filter(|game| {
+            game.cube_collections
+                .iter()
+                .all(CubeCollection::is_part_1_possible)
+        })
         .map(|game| game.id)
         .sum::<u64>()
         .to_string()
 }
 
-fn is_collection_possible(cube_collection: &CubeCollection) -> bool {
-    let max_red = 12;
-    let max_green = 13;
-    let max_blue = 14;
+pub fn run_part_2(input: &str) -> String {
+    input
+        .lines()
+        .map(|line| line.parse::<Game>().expect("Parse error"))
+        .map(|game| {
+            let min_red = game
+                .cube_collections
+                .iter()
+                .map(|collection| collection.red)
+                .max()
+                .unwrap_or(0);
 
-    cube_collection.red <= max_red
-        && cube_collection.green <= max_green
-        && cube_collection.blue <= max_blue
+            let min_green = game
+                .cube_collections
+                .iter()
+                .map(|collection| collection.green)
+                .max()
+                .unwrap_or(0);
+
+            let min_blue = game
+                .cube_collections
+                .iter()
+                .map(|collection| collection.blue)
+                .max()
+                .unwrap_or(0);
+
+            min_red * min_green * min_blue
+        })
+        .sum::<u64>()
+        .to_string()
 }
