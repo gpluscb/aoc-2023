@@ -20,6 +20,8 @@ enum Challenge {
     Day1_2,
     Day2_1,
     Day2_2,
+    Day3_1,
+    Day3_2,
 }
 
 impl Challenge {
@@ -33,6 +35,8 @@ impl Challenge {
             Challenge::Day1_2 => (1, 2),
             Challenge::Day2_1 => (2, 1),
             Challenge::Day2_2 => (2, 2),
+            Challenge::Day3_1 => (3, 1),
+            Challenge::Day3_2 => (3, 2),
         }
     }
 
@@ -42,6 +46,8 @@ impl Challenge {
             Challenge::Day1_2 => challenge::day1::run_part_2(input),
             Challenge::Day2_1 => challenge::day2::run_part_1(input),
             Challenge::Day2_2 => challenge::day2::run_part_2(input),
+            Challenge::Day3_1 => challenge::day3::run_part_1(input),
+            Challenge::Day3_2 => challenge::day3::run_part_2(input),
         }
     }
 }
